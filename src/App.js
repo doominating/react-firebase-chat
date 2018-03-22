@@ -1,11 +1,16 @@
-import React from 'react'
-import { withStyles } from 'material-ui/styles'
-import CssBaseline from 'material-ui/CssBaseline'
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import Typography from 'material-ui/Typography'
-import Button from 'material-ui/Button'
-import './App.css'
+import  React from 'react'
+import  { withStyles } from 'material-ui/styles'
+import  CssBaseline from 'material-ui/CssBaseline'
+import  AppBar from 'material-ui/AppBar'
+import  Toolbar from 'material-ui/Toolbar'
+import  Typography from 'material-ui/Typography'
+import  Button from 'material-ui/Button'
+import  { BrowserRouter as Router
+        , Route
+        , Link
+      } from 'react-router-dom'
+import Chat from './Chat'
+import SignIn from './SignIn'
 
 const styles = {
   root: {
@@ -21,8 +26,14 @@ const styles = {
 }
 
 const App = ( props ) => {
-  const { classes } = props
+  const { classes
+        } = props
+
+  // equality operator ftw, null & undefined are mutated to an empty object
+  const profile = props.profile == null ? { displayName:'', avatarUrl:'' } : props.profile
+
   return (
+    <Router>
     <div>
       <CssBaseline />
       <AppBar position="static">
@@ -30,13 +41,18 @@ const App = ( props ) => {
           <Typography variant="title" color="inherit" className={ classes.flex }>
             Chat please
           </Typography>
-          <Button color="inherit">Login</Button>
+          { profile.displayName.length
+            ? <Button color="inherit">Sign Out</Button>
+            : <Button color="inherit">Sign In</Button>
+          }
         </Toolbar>
       </AppBar>
-      <p className="App-intro">
-        Yo chilluns go here
-      </p>
+        { profile.displayName.length
+          ? <Chat/>
+          : <SignIn/>
+        }
     </div>
+    </Router>
   )
 }
 export default withStyles(styles)(App)
