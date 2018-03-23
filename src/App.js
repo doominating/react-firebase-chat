@@ -4,10 +4,13 @@ import  CssBaseline from 'material-ui/CssBaseline'
 import  AppBar from 'material-ui/AppBar'
 import  Toolbar from 'material-ui/Toolbar'
 import  Typography from 'material-ui/Typography'
+import  Paper from 'material-ui/Paper'
+import  Grid from 'material-ui/Grid'
 import  Button from 'material-ui/Button'
 import  { BrowserRouter as Router
         , Route
         , Redirect
+        , Switch
         , Link
       } from 'react-router-dom'
 import Chat from './Chat'
@@ -23,6 +26,13 @@ const styles = {
 , menuButton: {
     marginLeft: -12
   , marginRight: 20
+  }
+, contentBodyGrid: {
+    margin: 16
+  , width: 'auto'
+  }
+, contentBodyPaper: {
+    padding: 16
   }
 }
 
@@ -46,9 +56,18 @@ const App = ( props ) => {
           { profile.displayName.length ? <Button color="inherit">Sign Out</Button>: null }
         </Toolbar>
       </AppBar>
-      <Route exact path='/signin' component={SignIn} />
-      <Route exact path='/chat' component={Chat} />
-      <Route render={ () => profile.displayName.length ? <Redirect to='/chat'/> : <Redirect to='/signin'/> } />
+      <Grid style={styles.contentBodyGrid} container justify='center' alignItems='center' >
+        <Paper style={styles.contentBodyPaper}>
+
+        <Switch>
+          <Route exact path='/signin' component={SignIn} />
+          <Route render={ () => profile.displayName.length ? <Redirect to='/chat'/> : <Redirect to='/signin'/> } />
+          <Route exact path='/chat' component={Chat} />
+        </Switch>
+
+        </Paper>
+      </Grid>
+
     </div>
     </Router>
   )
