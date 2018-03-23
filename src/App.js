@@ -7,6 +7,7 @@ import  Typography from 'material-ui/Typography'
 import  Button from 'material-ui/Button'
 import  { BrowserRouter as Router
         , Route
+        , Redirect
         , Link
       } from 'react-router-dom'
 import Chat from './Chat'
@@ -25,11 +26,12 @@ const styles = {
   }
 }
 
+
 const App = ( props ) => {
   const { classes
         } = props
 
-  // equality operator ftw, null & undefined are mutated to an empty object
+  // equality operator ftw, the null check includes undefined
   const profile = props.profile == null ? { displayName:'', avatarUrl:'' } : props.profile
 
   return (
@@ -41,16 +43,12 @@ const App = ( props ) => {
           <Typography variant="title" color="inherit" className={ classes.flex }>
             Chat please
           </Typography>
-          { profile.displayName.length
-            ? <Button color="inherit">Sign Out</Button>
-            : <Button color="inherit">Sign In</Button>
-          }
+          { profile.displayName.length ? <Button color="inherit">Sign Out</Button>: null }
         </Toolbar>
       </AppBar>
-        { profile.displayName.length
-          ? <Chat/>
-          : <SignIn/>
-        }
+      <Route exact path='/signin' component={SignIn} />
+      <Route exact path='/chat' component={Chat} />
+      <Route render={ () => profile.displayName.length ? <Redirect to='/chat'/> : <Redirect to='/signin'/> } />
     </div>
     </Router>
   )
