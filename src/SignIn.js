@@ -5,6 +5,11 @@ import  GoogleButton from './GoogleButton'
 
 
 const styles = {
+  center: {
+    margin: 'auto'
+  , width: '50%'
+  , padding: 8
+  }
 }
 
 
@@ -22,7 +27,7 @@ const SignIn = ( props ) => {
       <p>
         You may need to enable pop-ups, and might be temporarily redirected to Google for your consent
       </p>
-      <div>
+      <div style={styles.center}>
         <a ><GoogleButton/></a>
       </div>
     </div>
