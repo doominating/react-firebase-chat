@@ -8,11 +8,14 @@
     ]
   },
   "hosting": {
-    "public": "public",
+    "public": "build",
     "ignore": [
       "firebase.json",
+      "database.rules.json",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "**/public/**",
+      "**/src/**"
     ],
     "rewrites": [
       {
