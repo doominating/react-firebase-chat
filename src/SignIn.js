@@ -12,25 +12,37 @@ const styles = {
   }
 }
 
+const showMessage = ( msg ) => {
+  const defaultMessage = 'You may need to enable pop-ups, and might be temporarily redirected to Google for your consent'
+  return (
+    <p>
+      { defaultMessage }
+    </p>
+  )
+}
+
+
+const onSignInClick = ( providerLogin, provider ) => {
+    return () => providerLogin( provider )
+  }
+
 
 const SignIn = ( props ) => {
   const { providerLogin
+        , errorMessage = ''
         } = props
-
-// onClick={ providerLogin( 'google' ) }
 
   return (
     <div>
       <Typography variant="title" color="inherit" >
         Sign In
       </Typography>
-      <p>
-        You may need to enable pop-ups, and might be temporarily redirected to Google for your consent
-      </p>
+      { showMessage( errorMessage ) }
       <div style={styles.center}>
-        <a ><GoogleButton/></a>
+        <a onClick={ onSignInClick( providerLogin, 'google' ) }><GoogleButton/></a>
       </div>
     </div>
   )
 }
+
 export default withStyles(styles)(SignIn)

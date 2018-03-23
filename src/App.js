@@ -14,7 +14,7 @@ import  { BrowserRouter as Router
         , Link
       } from 'react-router-dom'
 import Chat from './Chat'
-import SignIn from './SignIn'
+import SignIn from './SignInContainer'
 
 const styles = {
   root: {
@@ -36,13 +36,27 @@ const styles = {
   }
 }
 
+const defaultProfile =  { displayName: ''
+                        , avatarUrl: ''
+                        , isEmpty: true
+                        , isLoaded: false
+                        }
+
+// this is icky.
+const handleLogout = ( firebase ) => {
+  return () => {
+    firebase !== null
+    && firebase.logout()
+       .then( () => <Redirect to='/'/> )
+  }
+}
 
 const App = ( props ) => {
   const { classes
         } = props
 
   // equality operator ftw, the null check includes undefined
-  const profile = props.profile == null ? { displayName:'', avatarUrl:'' } : props.profile
+  const profile = props.profile == null ? defaultProfile : { ...defaultProfile, ...props.profile }
 
   return (
     <Router>
@@ -53,7 +67,7 @@ const App = ( props ) => {
           <Typography variant="title" color="inherit" className={ classes.flex }>
             Chat please
           </Typography>
-          { profile.displayName.length ? <Button color="inherit">Sign Out</Button>: null }
+          { profile.displayName.length ? <Button onClick={ handleLogout( props.firebase ) } color="inherit">Sign Out</Button>: null }
         </Toolbar>
       </AppBar>
       <Grid style={styles.contentBodyGrid} container justify='center' alignItems='center' >
