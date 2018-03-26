@@ -6,11 +6,6 @@ import  Divider from 'material-ui/Divider'
 import  ChatList from './ChatList'
 import  ChatForm from './ChatForm'
 
-/*
-import  Avatar from 'material-ui/Avatar'
-for chat later        { profile.avatarUrl.length && <Avatar src={ profile.avatarUrl } /> }
-
-*/
 
 const styles = theme => ({
   root: {
@@ -23,16 +18,16 @@ const styles = theme => ({
   }
 })
 
-
 const Chat = ( props ) => {
   const { classes
+        , chats
         , onSubmit
         , validate
         } = props
   return (
     <div>
     <Grid item >
-      <Paper className={classes.paper}><ChatList /></Paper>
+      <Paper className={classes.paper}><ChatList chats={chats}/></Paper>
     </Grid>
     <Divider inset={true} />
     <Grid item >

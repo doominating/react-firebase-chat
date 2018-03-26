@@ -11,7 +11,6 @@ import  { BrowserRouter as Router
         , Route
         , Redirect
         , Switch
-        , Link
       } from 'react-router-dom'
 import Chat from './ChatContainer'
 import SignIn from './SignInContainer'

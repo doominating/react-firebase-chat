@@ -21,7 +21,7 @@ const ChatForm = ( props ) => {
       initialValues={{ message:'' }}
       validate={ validate }
       render={({ handleSubmit, reset, submitting, pristine, values }) => (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
           <Field
             style={{display:'flex'}}
             id='chatFormMessage'

@@ -1,6 +1,8 @@
 import  React  from 'react'
 import  { connect } from 'react-redux'
-import  { withFirebase } from 'react-redux-firebase'
+import  { firebaseConnect
+        , populate
+        } from 'react-redux-firebase'
 import  moment from 'moment'
 import  Component from './Chat'
 
@@ -11,11 +13,12 @@ class Container extends React.Component {
   onSubmit = ( values ) => {
     const { message } = values
     const timestamp = moment().toISOString()
-    const user = { [this.props.authuid]: true }
+    const userId = this.props.auth.uid
+    const owner = { [this.props.auth.uid]: true }
     const fbPath = `/rooms/main`
     const id = this.props.firebase.ref( fbPath ).push().key
     this.props.firebase.ref( fbPath + '/' + id )
-    .set( { id , user , timestamp , message } )
+    .set( { id, userId, owner, timestamp, message } )
   }
 
 
@@ -34,12 +37,36 @@ class Container extends React.Component {
 
   render () {
     return (
-      <Component onSubmit={this.onSubmit} validate={this.validate} />
+      <Component chats={this.props.chats} onSubmit={this.onSubmit} validate={this.validate} />
     )
   }
 
 }
 
-const mapStateToProps = ( { firebase: { auth } } ) => ( { auth } )
 
-export default connect( mapStateToProps )( withFirebase( Container ) )
+// firebase.ordered dnw???
+const ordered = ( oChats ) => {
+  if ( oChats == null ) return [ ]
+  const keys = Object.keys( oChats )
+  if ( !keys.length ) return [ ]
+  return keys.map( ( key ) =>  {
+        const { id, userId, owner, timestamp, message } = oChats[key]
+        return { id, message, timestamp, ...owner[userId] }
+    })
+}
+
+const populates = [ { root: 'users', child: 'owner' } ]
+
+const mapStateToProps = ( { firebase } ) => {
+  const { auth } = firebase
+  const chats = ordered( populate( firebase, 'rooms/main', populates ) )
+  return { auth, chats }
+}
+
+const FbContainer = firebaseConnect( [  { path: 'rooms/main'
+                                        , queryParams: [ 'limitToLast=5' ]
+                                        , populates
+                                        }
+                                      ] )( Container )
+
+export default connect( mapStateToProps )( FbContainer )
