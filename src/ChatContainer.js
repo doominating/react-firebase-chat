@@ -9,7 +9,7 @@ import  Component from './Chat'
 
 class Container extends React.Component {
 
-
+  // returns a promise for the reset continuation
   onSubmit = ( values ) => {
     const { message } = values
     const timestamp = moment().toISOString()
@@ -17,7 +17,7 @@ class Container extends React.Component {
     const owner = { [this.props.auth.uid]: true }
     const fbPath = `/rooms/main`
     const id = this.props.firebase.ref( fbPath ).push().key
-    this.props.firebase.ref( fbPath + '/' + id )
+    return this.props.firebase.ref( fbPath + '/' + id )
     .set( { id, userId, owner, timestamp, message } )
   }
 
