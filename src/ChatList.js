@@ -2,8 +2,9 @@ import  React from 'react'
 import { withStyles } from 'material-ui/styles'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
-import ImageIcon from 'material-ui-icons/Image'
 
+
+const styles = { }
 
 const ChatList = ( props ) => {
   const { classes
@@ -18,4 +19,4 @@ const ChatList = ( props ) => {
     </List>
   )
 }
-export default withStyles()(ChatList)
+export default withStyles(styles)(ChatList)
