@@ -13,7 +13,7 @@ const styles = {
 }
 
 const showMessage = ( msg ) => {
-  const defaultMessage = 'You may need to enable pop-ups, and might be temporarily redirected to Google for your consent'
+  const defaultMessage = 'You may need to enable pop-ups, and will be temporarily redirected to Google for your consent'
   return (
     <p>
       { defaultMessage }

@@ -33,12 +33,21 @@ const styles = {
   }
 , contentBodyPaper: {
     padding: 16
+  , minWidth: 400
+  }
+, displayName: {
+    marginLeft: 12
+  , marginRight: 'calc(50%)'
   }
 }
 
 const defaultProfile =  { displayName: ''
                         , avatarUrl: ''
                         , isEmpty: true
+                        , isLoaded: false
+                        }
+
+const defaultAuth =     { isEmpty: true
                         , isLoaded: false
                         }
 
@@ -57,6 +66,8 @@ const App = ( props ) => {
 
   // equality operator ftw, the null check includes undefined
   const profile = props.profile == null ? defaultProfile : { ...defaultProfile, ...props.profile }
+  const auth = props.auth == null ? defaultAuth : { ...defaultAuth, ...props.auth }
+  const isAuthed = auth.isLoaded && !auth.isEmpty
 
   return (
     <Router>
@@ -65,23 +76,30 @@ const App = ( props ) => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="title" color="inherit" className={ classes.flex }>
-            Chat please
+            Chat
           </Typography>
-          { profile.displayName.length ? <Button onClick={ handleLogout( props.firebase ) } color="inherit">Sign Out</Button>: null }
+          <Typography  style={ styles.displayName }align="center" variant="subheading" color="inherit">{profile.displayName}</Typography>
+          { isAuthed ? <Button onClick={ handleLogout( props.firebase ) } color="inherit">Sign Out</Button>: null }
         </Toolbar>
       </AppBar>
-      <Grid style={styles.contentBodyGrid} container justify='center' alignItems='center' >
+      <div className={classes.root}>
+      <Grid style={styles.contentBodyGrid} spacing={24} container justify='center' alignItems='center' >
         <Paper style={styles.contentBodyPaper}>
-
-        <Switch>
-          <Route exact path='/signin' component={SignIn} />
-          <Route render={ () => profile.displayName.length ? <Redirect to='/chat'/> : <Redirect to='/signin'/> } />
-          <Route exact path='/chat' component={Chat} />
-        </Switch>
-
+          { isAuthed
+            ? ( <Switch>
+                  <Route exact path='/chat' component={Chat} />
+                  <Route render={ () => <Redirect to='/chat'/> } />
+                </Switch>
+              )
+            : ( <Switch>
+                  <Route exact path='/signin' component={SignIn} />
+                  <Route render={ () => <Redirect to='/signin'/> } />
+              </Switch>
+            )
+          }
         </Paper>
       </Grid>
-
+    </div>
     </div>
     </Router>
   )
