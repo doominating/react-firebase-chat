@@ -26,6 +26,8 @@ const styles = theme => ({
 
 const Chat = ( props ) => {
   const { classes
+        , onSubmit
+        , validate
         } = props
   return (
     <div>
@@ -34,7 +36,7 @@ const Chat = ( props ) => {
     </Grid>
     <Divider inset={true} />
     <Grid item >
-      <Paper className={classes.paper}><ChatForm /></Paper>
+      <Paper className={classes.paper}><ChatForm onSubmit={onSubmit} validate={validate}/></Paper>
     </Grid>
     </div>
   )

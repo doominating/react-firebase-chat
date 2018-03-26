@@ -8,27 +8,12 @@ import  AddIcon from 'material-ui-icons/Add'
 import  ChatFormTextField from './ChatFormTextField'
 
 
-const styles = {
-}
-
-
-const onSubmit = ( values ) => {
-  console.log( 'onSubmit:', values )
-  window.alert(JSON.stringify(values, 0, 2))
-}
-
-const validate = ( values ) => {
- const errors = { }
-  if ( !values.message ) {
-    errors.message = 'Required'
-  }
-  return errors
-}
+const styles = { }
 
 const ChatForm = ( props ) => {
   const { classes
-//        , onSubmit
-//        , validate
+        , onSubmit
+        , validate
         } = props
   return (
     <Form

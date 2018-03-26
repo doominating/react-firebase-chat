@@ -1,6 +1,15 @@
 {
   "rules": {
     ".read": "auth != null",
-    ".write": "auth != null"
+    ".write": false,
+    "$messageId": {
+      ".write": "auth != null && !data.exists()",
+      ".read": "auth != null",
+      ".validate": "newData.hasChildren(['message'])",
+      "message": {
+        ".validate": "newData.isString()
+          && newData.val().length < 512"
+      }
+    }
   }
 }

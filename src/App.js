@@ -13,7 +13,7 @@ import  { BrowserRouter as Router
         , Switch
         , Link
       } from 'react-router-dom'
-import Chat from './Chat'
+import Chat from './ChatContainer'
 import SignIn from './SignInContainer'
 
 const styles = {
