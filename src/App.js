@@ -52,10 +52,17 @@ const defaultAuth =     { isEmpty: true
                         , isLoaded: false
                         }
 
+const handleSignout = ( firebase ) => {
+  return () => {
+    firebase !== null
+    && firebase.logout()
+       .then( () => <Redirect to='/'/> )
+  }
+}
 
 const App = ( props ) => {
   const { classes
-        , handleLogout
+        , firebase
         } = props
 
   // equality operator ftw, the null check includes undefined
@@ -74,7 +81,7 @@ const App = ( props ) => {
             Chat, si vous plait
           </Typography>
           <Typography  style={ styles.displayName }align="center" variant="subheading" color="inherit">{profile.displayName}</Typography>
-          { isAuthed ? <Button onClick={ handleLogout } color="inherit">Sign Out</Button>: null }
+          { isAuthed ? <Button onClick={ handleSignout( firebase ) } color="inherit">Sign Out</Button>: null }
         </Toolbar>
       </AppBar>
       <div className={classes.root}>
