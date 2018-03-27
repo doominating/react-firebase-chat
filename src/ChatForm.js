@@ -17,25 +17,25 @@ const ChatForm = ( props ) => {
         } = props
   return (
     <Form
-      onSubmit={onSubmit}
+      onSubmit={ onSubmit }
       initialValues={{ message:'' }}
       validate={ validate }
       render={({ handleSubmit, reset, submitting, pristine, values }) => (
-        <form onSubmit={ (event) => handleSubmit(event).then( reset )} >
+        <form onSubmit={ ( event ) => handleSubmit( event ).then( reset )} >
           <Field
-            style={{display:'flex'}}
+            style={{ display:'flex' }}
             id='chatFormMessage'
             name='message'
-            component={ChatFormTextField}
+            component={ ChatFormTextField }
             autoFocus
             multiline
             margin='normal'
-            placeholder='Chat, please...'
+            placeholder='Enter your message here...'
             inputProps={{
               'aria-label': 'Chat Message:'
             }}
           />
-          <Button type='submit'  variant='fab' color='primary' aria-label='add' disabled={ submitting || pristine } className={ classes.button } >
+          <Button type='submit' variant='fab' color='primary' aria-label='add' disabled={ submitting || pristine } className={ classes.button } >
             <AddIcon />
           </Button>
         </form>

@@ -14,6 +14,8 @@ import  { BrowserRouter as Router
       } from 'react-router-dom'
 import Chat from './ChatContainer'
 import SignIn from './SignInContainer'
+import chat from './static/chat.png'
+
 
 const styles = {
   root: {
@@ -50,17 +52,10 @@ const defaultAuth =     { isEmpty: true
                         , isLoaded: false
                         }
 
-// this is icky.
-const handleLogout = ( firebase ) => {
-  return () => {
-    firebase !== null
-    && firebase.logout()
-       .then( () => <Redirect to='/'/> )
-  }
-}
 
 const App = ( props ) => {
   const { classes
+        , handleLogout
         } = props
 
   // equality operator ftw, the null check includes undefined
@@ -74,11 +69,12 @@ const App = ( props ) => {
       <CssBaseline />
       <AppBar position="static">
         <Toolbar>
+          <img style={{marginRight: 12}} src={chat} alt='chaticon' height="48"/>
           <Typography variant="title" color="inherit" className={ classes.flex }>
-            Chat
+            Chat, si vous plait
           </Typography>
           <Typography  style={ styles.displayName }align="center" variant="subheading" color="inherit">{profile.displayName}</Typography>
-          { isAuthed ? <Button onClick={ handleLogout( props.firebase ) } color="inherit">Sign Out</Button>: null }
+          { isAuthed ? <Button onClick={ handleLogout } color="inherit">Sign Out</Button>: null }
         </Toolbar>
       </AppBar>
       <div className={classes.root}>
