@@ -10,6 +10,7 @@
 /build
 
 # misc
+# yes I've heard of grep
 .DS_Store
 .env
 .env.local

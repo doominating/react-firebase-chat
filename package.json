@@ -1,6 +1,12 @@
 {
-  "name": "rwchat",
-  "version": "0.1.0",
+  "name": "react-firebase-chat",
+  "description": "A simple chat app based on react and firebase",
+  "keywords": "react firebase chat",
+  "homepage": "/",
+  "repository": "https://github.com/mrose/react-firebase-chat",
+  "bugs": "https://github.com/mrose/react-firebase-chat/issues",
+  "license": "MIT",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@firebase/app-types": "^0.1.2",
