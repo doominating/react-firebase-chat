@@ -6,6 +6,8 @@ MANY MANY THANKS to Prescott Prue, your super duper hard work made this a breeze
 
 n.b. Users will need google accounts to sign in.
 
+[Demo](https://react-firebase-chat-70982.firebaseapp.com/signin)
+
 
 ## Sign Up (free)
 
